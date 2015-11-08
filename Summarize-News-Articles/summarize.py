@@ -21,3 +21,23 @@ class SummaryTool(object):
         '''
 
         pass
+
+    def get_sentence_ranks(self, content):
+
+        '''
+        Function to get the rank of the sentences
+        in the paragraph.
+        '''
+
+        pass
+
+
+
+    def get_best_sentences(self, sentence_dictionary):
+
+        '''
+        Function to get the best sentences in the
+        paragraph.
+        '''
+
+        pass
