@@ -40,6 +40,16 @@ class SummaryTool(object):
         # We normalize the result by the average number of words
         return len(s1.intersection(s2)) / ((len(s1) + len(s2)) / 2)
 
+    def format_sentence(self, sentence):
+
+        '''
+        Function to remove all the non-alphabetic characters
+        from the sentence.
+        '''
+
+        sentence = re.sub(r'\W+', '', sentence)
+        return sentence
+
     def get_sentence_ranks(self, content):
 
         '''
@@ -47,7 +57,27 @@ class SummaryTool(object):
         in the paragraph.
         '''
 
-        pass
+        # Split the content into sentences
+        sentences = self.split_content_to_sentences(content)
+
+        # Calculate the intersection of every two sentences
+        n = len(sentences)
+        values = [[0 for x in xrange(n)] for x in xrange(n)]
+        for i in range(0, n):
+            for j in range(0, n):
+                values[i][j] = self.sentences_intersection(sentences[i], sentences[j])
+
+        # Build the sentences dictionary
+        # The score of a sentences is the sum of all its intersection
+        sentences_dic = {}
+        for i in range(0, n):
+            score = 0
+            for j in range(0, n):
+                if i == j:
+                    continue
+                score += values[i][j]
+            sentences_dic[self.format_sentence(sentences[i])] = score
+        return sentences_dic
 
 
 
