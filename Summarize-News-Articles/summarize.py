@@ -41,3 +41,11 @@ class SummaryTool(object):
         '''
 
         pass
+
+    def get_summary(self, title, content, sentences_dic):
+
+        '''
+        Function to generate the summary.
+        '''
+
+        pass
