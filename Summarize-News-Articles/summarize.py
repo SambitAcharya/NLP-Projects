@@ -88,7 +88,25 @@ class SummaryTool(object):
         paragraph.
         '''
 
-        pass
+        # Split the paragraph into sentences
+        sentences = self.split_content_to_sentences(paragraph)
+
+        # Ignore short paragraphs
+        if len(sentences) < 2:
+            return ""
+
+        # Get the best sentence according to the sentences dictionary
+        best_sentence = ""
+        max_value = 0
+        for s in sentences:
+            strip_s = self.format_sentence(s)
+            if strip_s:
+                if sentences_dic[strip_s] > max_value:
+                    max_value = sentences_dic[strip_s]
+                    best_sentence = s
+
+        return best_sentence
+
 
     def get_summary(self, title, content, sentences_dic):
 
@@ -96,4 +114,18 @@ class SummaryTool(object):
         Function to generate the summary.
         '''
 
-        pass
+        # Split the content into paragraphs
+        paragraphs = self.split_content_to_paragraphs(content)
+
+        # Add the title
+        summary = []
+        summary.append(title.strip())
+        summary.append("")
+
+        # Add the best sentence from each paragraph
+        for p in paragraphs:
+            sentence = self.get_best_sentence(p, sentences_dic).strip()
+            if sentence:
+                summary.append(sentence)
+
+        return ("\n").join(summary)
