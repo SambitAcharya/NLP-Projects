@@ -1,4 +1,5 @@
 from frequency_summarize import FrequencySummarizer
+from rouge import rouge_score
 
 text = '''
 
@@ -16,21 +17,12 @@ fs = FrequencySummarizer()
 summary = ''.join(fs.summarize(text,3))
 
 human_summary = '''
+
 The government has asked the Supreme Court to dismiss a PIL seeking a declaration that India be called 'Bharat' in all official and unofficial communications. The Home Ministry said the country's name was deliberated upon extensively and adopted unanimously while drafting the Constitution.
 The court had asked the government to respond to the PIL filed by a social activist.
+
 '''
 
-summary = summary.split()
-human_summary = human_summary.split()
+score = rouge_score(summary, human_summary)
 
-bigrams_summary = set(' '.join(summary[i:i+2]) for i,v in enumerate(summary) \
-if i!=len(summary)-1)
-
-bigrams_humansummary = set(' '.join(human_summary[i:i+2]) for i,v in \
-enumerate(human_summary) if i!=len(human_summary)-1)
-
-common_bigrams = bigrams_summary.intersection(bigrams_humansummary)
-
-rouge_score = float(len(common_bigrams))/len(bigrams_humansummary)
-
-print "%.3f" %rouge_score
+print "%.3f" %score
