@@ -54,5 +54,7 @@ class FrequencySummarizer:
         return [sents[j] for j in sents_idx]
 
     def _rank(self, ranking, n):
-        """ return the first n sentences with highest ranking """
+        """
+            return the first n sentences with highest ranking
+        """
         return sorted(nlargest(n, ranking, key=ranking.get))

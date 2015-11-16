@@ -8,26 +8,26 @@ class SummaryTool(object):
 
     def split_content_to_sentences(self, content):
 
-        '''
+        """
         Function to split the given content to sentences.
-        '''
+        """
 
         content = content.replace("\n", ". ")
         return content.split(". ")
 
     def split_content_to_paragraphs(self, content):
 
-        '''
+        """
         Function to split content to paragraphs
-        '''
+        """
 
         return content.split("\n\n")
 
     def sentence_intersection(self, sent1, sent2):
 
-        '''
+        """
         Function to calculate the intersection between two sentences
-        '''
+        """
 
         # split the sentence into words/tokens
         s1 = set(sent1.split(" "))
@@ -42,20 +42,20 @@ class SummaryTool(object):
 
     def format_sentence(self, sentence):
 
-        '''
+        """
         Function to remove all the non-alphabetic characters
         from the sentence.
-        '''
+        """
 
         sentence = re.sub(r'\W+', '', sentence)
         return sentence
 
     def get_sentence_ranks(self, content):
 
-        '''
+        """
         Function to get the rank of the sentences
         in the paragraph.
-        '''
+        """
 
         # Split the content into sentences
         sentences = self.split_content_to_sentences(content)
@@ -83,10 +83,10 @@ class SummaryTool(object):
 
     def get_best_sentences(self, sentence_dictionary):
 
-        '''
+        """
         Function to get the best sentences in the
         paragraph.
-        '''
+        """
 
         # Split the paragraph into sentences
         sentences = self.split_content_to_sentences(paragraph)
@@ -110,9 +110,9 @@ class SummaryTool(object):
 
     def get_summary(self, title, content, sentences_dic):
 
-        '''
+        """
         Function to generate the summary.
-        '''
+        """
 
         # Split the content into paragraphs
         paragraphs = self.split_content_to_paragraphs(content)

@@ -1,5 +1,10 @@
 def rouge_score(summary, human_summary):
 
+    """
+        Function to calculate the rouge score of a summary by
+        considering bigrams.
+    """
+
     summary = summary.split()
     human_summary = human_summary.split()
 
