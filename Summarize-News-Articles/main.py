@@ -1,10 +1,36 @@
 from frequency_summarize import FrequencySummarizer
 
 text = '''
-After witnessing his mother's (Michelle Harrison) supernatural murder and his father's (John Wesley Shipp) wrongful conviction for the crime, Barry Allen (Grant Gustin) is taken in by Detective Joe West (Jesse L. Martin) and his family. Allen becomes a brilliant but socially awkward crime scene investigator for the Central City Police Department. His obsession with his tragic past causes him to become an outcast among his peers; he investigates cold cases, paranormal occurrences, and cutting-edge scientific advancements that may shed light on his mother's murder. No one believes his description of the crime—that a ball of lightning with the face of a man invaded their home that night—and Allen is fiercely driven to vindicate himself and to clear his father's name. Fourteen years after his mother's death, an advanced particle accelerator malfunctions during its public unveiling, bathing the city center with a previously unknown form of radiation and creating a severe thunderstorm. Allen is struck by lightning from the storm and doused with chemicals in his lab. Awakening after a nine-month coma, he discovers he has the ability to move at superhuman speeds. Dr. Harrison Wells (Tom Cavanagh), the disgraced designer of the failed particle accelerator, describes Barry's special nature as "metahuman"; Allen soon discovers that he is not the only one who was changed by the radiation. Allen vows to use his gifts to protect Central City from the escalating violence of metahuman criminals. He is aided by a few close friends and associates who guard his secrets.
+
+THE NDA government has told the Supreme Court that the country does not have to be called 'Bharat' instead of 'India'.
+Responding to a PIL seeking a declaration that the Republic be called 'Bharat' for official and unofficial purposes by Union and state governments, the Centre claimed "there is no change in circumstances to consider any change in Article 1 of the Constitution of India." Article 1(1) says, "India, that is Bharat, shall be a Union of States." This is the only provision in Constitution on how this country be called for official and unofficial purposes.
+Submitting its affidavit recently, the Ministry of Home Affairs (MHA) said issues regarding the country’s name were deliberated upon extensively by the Constituent Assembly during drafting of the Constitution and clauses in Article 1 were adopted unanimously. It further argued that the name ‘Bharat’ did not figure in the original draft of the Constitution and it was during debates that the Constituent Assembly considered names such as Bharat, Bharatbhumi, Bharatvarsh, India that is Bharat, Bharat that is India and Bharat as is known in English language India. It said there was no change in circumstances since the Constituent Assembly debated the issue to warrant a review.
+A representation by the PIL petitioner's advocate Ajay G Majithia, the MHA said, had been examined and the plea now deserves to be dismissed.
+Petitioner Niranjan Bhatwal, a social activist, had filed a PIL last year but the top court asked him to wait till his representation is decided upon by the government. After the government refused, he filed a fresh PIL and a bench headed by Chief Justice H L Dattu sought reply from Centre and state governments in April.
+Majithia had said Article 1.1 must be interpreted keeping in view Constituent Assembly's intention, "which wanted to name the country Bharat". The plea said 'India' was coined during colonial era and the country, historically and in scriptures, is called Bharat. "India was used in Article 1 for reference, in order to repeal Government of India Act, 1935, and Indian Independence Act, 1947," the petition said.
+
 '''
 
 fs = FrequencySummarizer()
 
-for s in fs.summarize(text,5):
-    print '*',s
+summary = ''.join(fs.summarize(text,3))
+
+human_summary = '''
+The government has asked the Supreme Court to dismiss a PIL seeking a declaration that India be called 'Bharat' in all official and unofficial communications. The Home Ministry said the country's name was deliberated upon extensively and adopted unanimously while drafting the Constitution.
+The court had asked the government to respond to the PIL filed by a social activist.
+'''
+
+summary = summary.split()
+human_summary = human_summary.split()
+
+bigrams_summary = set(' '.join(summary[i:i+2]) for i,v in enumerate(summary) \
+if i!=len(summary)-1)
+
+bigrams_humansummary = set(' '.join(human_summary[i:i+2]) for i,v in \
+enumerate(human_summary) if i!=len(human_summary)-1)
+
+common_bigrams = bigrams_summary.intersection(bigrams_humansummary)
+
+rouge_score = float(len(common_bigrams))/len(bigrams_humansummary)
+
+print "%.3f" %rouge_score
