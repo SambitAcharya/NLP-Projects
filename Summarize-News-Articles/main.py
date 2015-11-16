@@ -1,4 +1,5 @@
 from frequency_summarize import FrequencySummarizer
+from readingtime import readingTime
 from rouge import rouge_score
 
 text = '''
@@ -23,6 +24,8 @@ The court had asked the government to respond to the PIL filed by a social activ
 
 '''
 
+reading_time = readingTime(summary)
 score = rouge_score(summary, human_summary)
 
-print "%.3f" %score
+print "%s minute read" %reading_time
+print "Rouge Score - %.3f" %score
