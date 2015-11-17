@@ -1,4 +1,4 @@
-def rouge_score(summary, human_summary):
+def rougeScore(summary, human_summary):
 
     """
         Function to calculate the rouge score of a summary by
