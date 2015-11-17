@@ -2,7 +2,7 @@ from frequency_summarize import FrequencySummarizer
 from readingtime import readingTime
 from rouge import rouge_score
 
-text = '''
+content = '''
 
 THE NDA government has told the Supreme Court that the country does not have to be called 'Bharat' instead of 'India'.
 Responding to a PIL seeking a declaration that the Republic be called 'Bharat' for official and unofficial purposes by Union and state governments, the Centre claimed "there is no change in circumstances to consider any change in Article 1 of the Constitution of India." Article 1(1) says, "India, that is Bharat, shall be a Union of States." This is the only provision in Constitution on how this country be called for official and unofficial purposes.
@@ -15,7 +15,7 @@ Majithia had said Article 1.1 must be interpreted keeping in view Constituent As
 
 fs = FrequencySummarizer()
 
-summary = ''.join(fs.summarize(text,3))
+summary = ''.join(fs.summarize(content,3))
 
 human_summary = '''
 
@@ -24,8 +24,18 @@ The court had asked the government to respond to the PIL filed by a social activ
 
 '''
 
+print
+print "     Summary     "
+print "-----------------"
+
+print summary
+
 reading_time = readingTime(summary)
 score = rouge_score(summary, human_summary)
 
+print
+print "Original Length %s" % (len(content))
+print "Summary Length %s" % len(summary)
+print
 print "%s minute read" %reading_time
 print "Rouge Score - %.3f" %score
