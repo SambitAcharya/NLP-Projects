@@ -1,7 +1,8 @@
 from frequency_summarize import FrequencySummarizer
 from readingtime import readingTime
-from rouge import rouge_score
+from rouge import rougeScore
 
+# original news article borrowed from a news website.
 content = '''
 
 THE NDA government has told the Supreme Court that the country does not have to be called 'Bharat' instead of 'India'.
@@ -15,8 +16,10 @@ Majithia had said Article 1.1 must be interpreted keeping in view Constituent As
 
 fs = FrequencySummarizer()
 
+# Combining the lines to form a summary.
 summary = ''.join(fs.summarize(content,3))
 
+# Summary written by a human for the same article
 human_summary = '''
 
 The government has asked the Supreme Court to dismiss a PIL seeking a declaration that India be called 'Bharat' in all official and unofficial communications. The Home Ministry said the country's name was deliberated upon extensively and adopted unanimously while drafting the Constitution.
@@ -30,12 +33,16 @@ print "-----------------"
 
 print summary
 
+# Estimating the time taken to read the article.
 reading_time = readingTime(summary)
-score = rouge_score(summary, human_summary)
+
+# Evaluating how good the summary is by counting the number of common bigrams
+# in both the summaries.
+rouge_score = rougeScore(summary, human_summary)
 
 print
 print "Original Length %s" % (len(content))
 print "Summary Length %s" % len(summary)
 print
 print "%s minute read" %reading_time
-print "Rouge Score - %.3f" %score
+print "Rouge Score - %.3f" %rouge_score
